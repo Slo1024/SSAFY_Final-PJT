@@ -2,7 +2,7 @@
   <header>
     <div class="container">
       <div class="logo-search-bar">
-        <div class="logo">
+        <div class="logo" @click="goHome">
           <div class="img"><img style="width:100%" src="./assets/img/logo.png" alt=""></div>
           <h1>책을 찾다</h1>
         </div>
@@ -20,7 +20,14 @@
 
 <script setup>
 import SearchBar from '@/components/SearchBar.vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
+
+const goHome = function() {
+  router.push({name:'home'})
+}
 </script>
 
 <style scoped>
@@ -38,11 +45,12 @@ header .logo-search-bar{
   display: flex;align-items: center;gap: 32px;
 }
 /* 로고 */
-header .logo{ display: flex;align-items: center;gap: 12px;}
+header .logo{display: flex;align-items: center;gap: 16px;cursor:pointer;}
 header .logo .img{width: 48px;}
-header .logo h1{font-size: 18px;}
+header .logo h1{font-size: 14px;}
 
 /* 네이게이션 바 */
-.navbar{display: flex;gap: 28px;}
-.navber > a{font-size: 16px;}
+.navbar{display: flex;gap: 20px;}
+.navbar > a{font-size: 14px;}
+.navbar > a:hover{color: #FF5F0E;}
 </style>

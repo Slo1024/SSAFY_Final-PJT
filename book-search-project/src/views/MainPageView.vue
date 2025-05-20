@@ -21,7 +21,7 @@ import SearchBar from '@/components/SearchBar.vue'
   display: flex;justify-content: center;align-items: center;
 }
 
-.title-content{text-align: center;}
-.title-content p{margin-bottom: 20px;}
-.title-content h1{font-size: 28px;}
+.title-content{text-align: center;margin-bottom: 100px;}
+.title-content p{margin-bottom: 12px;font-size: 16px;}
+.title-content h1{font-size: 38px;line-height: 1.4;margin: 12px 0 40px;}
 </style>

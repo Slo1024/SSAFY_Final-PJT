@@ -1,5 +1,5 @@
 {
-  "name": "front-end",
+  "name": "book-search-project",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -9,10 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.6",
     "pinia": "^3.0.1",
-    "swiper": "^11.2.6",
-    "tailwindcss": "^4.1.6",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },

@@ -1,17 +1,18 @@
 <template>
-  <header v-if="!noLayoutRoutes.includes(route.name)">
+  <header v-if="showHeader">
     <div class="container">
       <div class="logo-search-bar">
         <div class="logo" @click="goHome">
-          <div class="img"><img style="width:100%" src="./assets/img/logo.png" alt=""></div>
-          <h1>책을 찾다</h1>
+          <h1>책쨩닷컴</h1>
         </div>
         <SearchBar v-if="route.path !== '/'" />
       </div>
       <nav class="navbar">
+        <form class="logout-btn">
+          <input type="submit" value="로그아웃">
+        </form>
         <RouterLink :to="{ name: 'login' }">로그인</RouterLink>
-        <RouterLink>내 서재</RouterLink>
-        <RouterLink>내 주변 서점 보기</RouterLink>
+        <!-- <RouterLink>전체 도서</RouterLink> -->
       </nav>
     </div>
   </header>
@@ -22,6 +23,7 @@
 <script setup>
 import SearchBar from '@/components/SearchBar.vue'
 import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
+import { computed } from 'vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -31,6 +33,10 @@ const goHome = function () {
 }
 
 const noLayoutRoutes = ['login', 'signup'] // 이름 기준 조건 분기
+
+const showHeader = computed(() => {
+  return route.name && !noLayoutRoutes.includes(route.name)
+})
 </script>
 
 <style scoped>
@@ -62,22 +68,10 @@ header .logo {
   cursor: pointer;
 }
 
-header .logo .img {
-  width: 48px;
-}
-
-header .logo h1 {
-  font-size: 14px;
-}
-
 /* 네이게이션 바 */
 .navbar {
   display: flex;
   gap: 20px;
-}
-
-.navbar>a {
-  font-size: 14px;
 }
 
 .navbar>a:hover {

@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
+from dotenv import load_dotenv
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,13 +37,42 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'articles',
+    'accounts',
+    'books',
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 ]
+
+AUTH_USER_MODEL = 'accounts.User'
+
+REST_AUTH = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+}
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SITE_ID = 1
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -47,6 +82,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'finalpjt.urls'
@@ -98,6 +134,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+OPENAI_API_KEY = env('OPENAI_API_KEY')
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
